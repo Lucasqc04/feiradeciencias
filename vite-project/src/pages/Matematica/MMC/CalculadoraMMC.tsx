@@ -60,6 +60,7 @@ const CalculadoraMMC: React.FC = () => {
         <form onSubmit={calcular}>
           <InputGroup>
             <label>Quantidade de Números:</label>
+            <hr/>
             <RadioGroup>
               {[2, 3, 4, 5].map(num => (
                 <label key={num}>
@@ -73,6 +74,7 @@ const CalculadoraMMC: React.FC = () => {
                 </label>
               ))}
             </RadioGroup>
+            <hr/>
           </InputGroup>
           {[...Array(quantidadeNumeros)].map((_, index) => (
             <InputGroup key={index}>

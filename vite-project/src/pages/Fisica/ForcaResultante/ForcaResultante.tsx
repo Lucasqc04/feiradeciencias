@@ -1,6 +1,20 @@
 // CalculadoraForcaResultante.jsx
 import React, { useState, FormEvent } from 'react';
-import styled from 'styled-components';
+ 
+import {
+  ResultadoContainer,
+  ResultadoTexto,
+  Container,
+  FormContainer,
+  InputGroup,
+  StyledInput,
+  CenteredButton,
+  Toggle,
+  Explicacao,
+  Exemplos,
+  RadioGroup
+} from '../../../ui/Styles/input/input.styles';
+
 
 interface ResultadoForcaResultante {
   forca?: number;
@@ -41,8 +55,10 @@ const CalculadoraForcaResultante: React.FC = () => {
 
   return (
     <Container>
-      <ToggleContainer>
-        <Toggle>
+        <FormContainer>
+        <label>Calcular:</label>
+        <hr/>
+        <RadioGroup>
           <input
             type="radio"
             id="calcularForca"
@@ -50,9 +66,9 @@ const CalculadoraForcaResultante: React.FC = () => {
             checked={tipoCalculo === 'calcularForca'}
             onChange={() => setTipoCalculo('calcularForca')}
           />
-          <RadioLabel htmlFor="calcularForca">Calcular Força (F = m * a)</RadioLabel>
-        </Toggle>
-        <Toggle>
+          <label htmlFor="calcularForca">Calcular Força (F = m * a)</label>
+         
+       
           <input
             type="radio"
             id="calcularMassa"
@@ -60,9 +76,9 @@ const CalculadoraForcaResultante: React.FC = () => {
             checked={tipoCalculo === 'calcularMassa'}
             onChange={() => setTipoCalculo('calcularMassa')}
           />
-          <RadioLabel htmlFor="calcularMassa">Calcular Massa (m = F / a)</RadioLabel>
-        </Toggle>
-        <Toggle>
+          <label htmlFor="calcularMassa">Calcular Massa (m = F / a)</label>
+       
+       
           <input
             type="radio"
             id="calcularAceleracao"
@@ -70,10 +86,10 @@ const CalculadoraForcaResultante: React.FC = () => {
             checked={tipoCalculo === 'calcularAceleracao'}
             onChange={() => setTipoCalculo('calcularAceleracao')}
           />
-          <RadioLabel htmlFor="calcularAceleracao">Calcular Aceleração (a = F / m)</RadioLabel>
-        </Toggle>
-      </ToggleContainer>
-      <FormContainer>
+          <label htmlFor="calcularAceleracao">Calcular Aceleração (a = F / m)</label>
+        </RadioGroup>
+  
+        <hr/>
         <form onSubmit={calcular}>
           <InputGroup>
             <label>{tipoCalculo === 'calcularForca' ? 'Massa (m):' : 'Força (F):'}</label>
@@ -140,112 +156,4 @@ const CalculadoraForcaResultante: React.FC = () => {
 
 export default CalculadoraForcaResultante;
 
-const ResultadoContainer = styled.div`
-  background-color: #e6f7ff; /* Azul claro */
-  border: 2px solid #91d5ff; /* Azul mais escuro */
-  border-radius: 5px;
-  padding: 20px;
-  text-align: center;
-  margin-top: 20px;
-  width: 90%;
-  margin-left: 5%;
-`;
-
-const ResultadoTexto = styled.p`
-  font-size: 18px;
-  font-weight: bold;
-  color: #0056b3; /* Azul escuro */
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20%;
-  margin-top: 5%;
-`;
-
-const ToggleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
-
-const Toggle = styled.button`
-  background-color: #e6e6e6;
-  border: none;
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin: 0 10px;
-  font-size: 16px;
-  color: #333;
-  transition: background-color 0.3s ease;
-  margin-bottom: 2%;
-
-  &:hover {
-    background-color: #ccc;
-  }
-`;
-
-const FormContainer = styled.div`
-  background-color: #f9f9f9; /* Cor de fundo do container dos inputs */
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
-  margin-bottom: 20px;
-  width: 90%;
-`;
-
-const InputGroup = styled.div`
-  margin-bottom: 10px;
-`;
-
-const StyledInput = styled.input`
-  height: 40px;
-  width: 80%; /* Ajuste a largura conforme necessário */
-  padding: 10px;
-  border-radius: 5px;
-  border: 2px solid orange; /* Laranja */
-  background: white; /* Branco */
-  color: orange; /* Laranja */
-  margin-left: 5%;
-`;
-
-const CenteredButton = styled.button`
-  display: block;
-  margin: 0 auto;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const RadioLabel = styled.label`
-  margin-left: 8px;
-  font-size: 16px;
-  color: #333;
-`;
-
-const Explicacao = styled.div`
-  background-color: #f2f2f2; /* Cor de fundo da explicação */
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 90%;
-`;
-
-const Exemplos = styled.div`
-  background-color: #f2f2f2; /* Cor de fundo dos exemplos */
-  border-radius: 5px;
-  padding: 10px;
-  width: 90%;
-`;
+ 

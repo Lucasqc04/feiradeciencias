@@ -55,10 +55,12 @@ const CalculadoraMDC: React.FC = () => {
  
   return (
     <Container>
+      
       <FormContainer>
         <form onSubmit={calcular}>
           <InputGroup>
             <label>Quantidade de Números:</label>
+            <hr/>
             <RadioGroup>
               {[2, 3, 4, 5].map(num => (
                 <label key={num}>
@@ -72,6 +74,7 @@ const CalculadoraMDC: React.FC = () => {
                 </label>
               ))}
             </RadioGroup>
+            <hr/>
           </InputGroup>
           {[...Array(quantidadeNumeros)].map((_, index) => (
             <InputGroup key={index}>

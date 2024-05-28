@@ -1,8 +1,7 @@
- 
 import styled from 'styled-components';
 import { Collapse } from 'antd';
 import { Link } from 'react-router-dom';
-import 'antd/dist/reset.css'
+import 'antd/dist/reset.css';
 
 const { Panel } = Collapse;
 
@@ -16,27 +15,27 @@ const HeroContainer = styled.div`
   align-items: center;
   height: auto;
   min-height: 100vh;
- 
-  
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: #333;
+  margin-bottom: 20px;
 `;
 
 const HeroSubtitle = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #666;
   margin-bottom: 30px;
 `;
 
 const Description = styled.p`
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
   max-width: 800px;
-  text-align: left;
+  text-align: justify;
   margin: 20px auto;
+  line-height: 1.6;
 `;
 
 const ToggleContainer = styled.div`
@@ -45,27 +44,33 @@ const ToggleContainer = styled.div`
   text-align: left;
 `;
 
+const PanelHeader = styled.h3`
+  font-size: 1.3rem;
+  color: #333;
+`;
+
 const Hero = () => {
   return (
     <HeroContainer>
       <HeroTitle>Bem-vindo à ASTROCALC</HeroTitle>
-      <HeroSubtitle>Descubra coisas incríveis aqui.</HeroSubtitle>
+      <HeroSubtitle>Descubra ferramentas incríveis e aprenda mais!</HeroSubtitle>
       <Description>
-        Este site foi criado como parte de um projeto de feira de ciências para oferecer uma série de calculadoras em diversos temas, com o objetivo de facilitar a vida dos estudantes e promover o aprendizado. Explore as calculadoras disponíveis nos temas abaixo:
+        A ASTROCALC é um projeto desenvolvido para oferecer uma série de calculadoras em diversos temas, com o objetivo de facilitar a vida dos estudantes e promover o aprendizado de maneira prática e interativa. Aqui, você encontrará ferramentas úteis para resolver problemas matemáticos, explorar conceitos geométricos, cuidar da saúde, calcular datas importantes, compreender princípios físicos e gerenciar finanças pessoais.
+        Navegue pelas categorias abaixo e descubra como nossas calculadoras podem ajudar você a aprender mais e simplificar suas tarefas diárias.
       </Description>
       <ToggleContainer>
         <Collapse accordion>
-          <Panel header="Matemática" key="1">
+          <Panel header={<PanelHeader>Matemática</PanelHeader>} key="1">
             <ul>
               <li><Link to="/Bhaskara">Calculadora de Bhaskara</Link></li>
               <li><Link to="/MMC">Calculadora de MMC</Link></li>
               <li><Link to="/MDC">Calculadora de MDC</Link></li>
               <li><Link to="/ProgressaoAritmetica">Calculadora de Progressão Aritmética</Link></li>
               <li><Link to="/ProgressaoGeometrica">Calculadora de Progressão Geométrica</Link></li>
-              <li><Link to="/RegraDeTres">Calculadora de Regra de Tres</Link></li>
+              <li><Link to="/RegraDeTres">Calculadora de Regra de Três</Link></li>
             </ul>
           </Panel>
-          <Panel header="Geometria" key="2">
+          <Panel header={<PanelHeader>Geometria</PanelHeader>} key="2">
             <ul>
               <li><Link to="/Pitagoras">Calculadora de Pitágoras</Link></li>
               <li><Link to="/Circulo-Area-Perimetro">Calculadora de Área e Perímetro do Círculo</Link></li>
@@ -75,25 +80,24 @@ const Hero = () => {
               <li><Link to="/LadoTriangulo">Calculadora de Lado do Triângulo</Link></li>
             </ul>
           </Panel>
-          <Panel header="Saúde" key="3">
+          <Panel header={<PanelHeader>Saúde</PanelHeader>} key="3">
             <ul>
               <li><Link to="/IMC">Calculadora de IMC</Link></li>
             </ul>
           </Panel>
-          <Panel header="Datas" key="4">
+          <Panel header={<PanelHeader>Datas</PanelHeader>} key="4">
             <ul>
               <li><Link to="/DiasParaAniversario">Calculadora de Dias para Aniversário</Link></li>
               <li><Link to="/DiasEntreDatas">Calculadora de Dias Entre Datas</Link></li>
             </ul>
           </Panel>
-          <Panel header="Física" key="5">
+          <Panel header={<PanelHeader>Física</PanelHeader>} key="5">
             <ul>
               <li><Link to="/VelocidadeMedia">Calculadora de Velocidade Média</Link></li>
-            
               <li><Link to="/ForcaResultante">Calculadora de Força Resultante</Link></li>
             </ul>
           </Panel>
-          <Panel header="Financeiro" key="6">
+          <Panel header={<PanelHeader>Financeiro</PanelHeader>} key="6">
             <ul>
               <li><Link to="/JurosCompostos">Calculadora de Juros Compostos</Link></li>
               <li><Link to="/JurosSimples">Calculadora de Juros Simples</Link></li>

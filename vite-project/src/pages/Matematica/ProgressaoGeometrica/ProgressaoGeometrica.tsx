@@ -84,6 +84,7 @@ const CalculadoraProgressaoGeometrica: React.FC = () => {
         <form onSubmit={calcular}>
           <InputGroup>
             <label>Calcular:</label>
+            <hr/>
             <RadioGroup>
             <label>
   <input
@@ -134,6 +135,7 @@ const CalculadoraProgressaoGeometrica: React.FC = () => {
   Número do Termo
 </label>
             </RadioGroup>
+            <hr/>
           </InputGroup>
           {calculo !== 'primeiroTermo' && (
             <InputGroup>

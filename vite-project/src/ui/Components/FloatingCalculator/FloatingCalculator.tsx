@@ -90,13 +90,11 @@ const FloatingCalculator = () => {
 
   return (
     <>
-      <Draggable>
-        <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 1000 }}>
-          <FloatingButton type="primary" onClick={showModal}>
-            <StyledCalculatorOutlined />
-          </FloatingButton>
-        </div>
-      </Draggable>
+      <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 1000 }}>
+        <FloatingButton type="primary" onClick={showModal}>
+          <StyledCalculatorOutlined />
+        </FloatingButton>
+      </div>
       <Modal
         title={
           <div
@@ -123,7 +121,7 @@ const FloatingCalculator = () => {
           <Draggable
             disabled={disabled}
             bounds={bounds}
-            onStart={(  uiData) => onStart( uiData)}
+            onStart={onStart}
           >
             <div ref={draggleRef}>{modal}</div>
           </Draggable>

@@ -56,6 +56,7 @@ const CalculadoraVelocidadeMedia: React.FC = () => {
         <Container>
             <FormContainer>
                 <form onSubmit={calcular}>
+                <hr/>
                     <RadioGroup>
                         <label>
                             <input
@@ -97,6 +98,7 @@ const CalculadoraVelocidadeMedia: React.FC = () => {
                             Calcular Tempo Decorrido
                         </label>
                     </RadioGroup>
+                    <hr/>
                     {calcularVelocidade && (
                         <>
                             <InputGroup>

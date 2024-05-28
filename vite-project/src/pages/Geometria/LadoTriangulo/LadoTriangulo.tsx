@@ -10,6 +10,7 @@ import {
   Toggle,
   Explicacao,
   Exemplos,
+  StyledSelect
 } from '../../../ui/Styles/input/input.styles';
 
 interface ResultadoLadoTriangulo {
@@ -76,17 +77,17 @@ const CalculadoraLadoTriangulo: React.FC = () => {
             />
           </InputGroup>
           <InputGroup>
-            <label>Razão trigonométrica:</label>
-            <select
-              value={razao}
-              onChange={(e) => setRazao(e.target.value)}
-              required
-            >
-              <option value="seno">Seno</option>
-              <option value="cosseno">Cosseno</option>
-              <option value="tangente">Tangente</option>
-            </select>
-          </InputGroup>
+  <label>Razão trigonométrica:</label>
+  <StyledSelect
+    value={razao}
+    onChange={(e) => setRazao(e.target.value)}
+    required
+  >
+    <option value="seno">Seno</option>
+    <option value="cosseno">Cosseno</option>
+    <option value="tangente">Tangente</option>
+  </StyledSelect>
+</InputGroup>
           <InputGroup>
             <label>Valor da razão:</label>
             <StyledInput

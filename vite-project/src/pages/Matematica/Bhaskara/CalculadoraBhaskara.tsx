@@ -12,7 +12,7 @@ import {
   Exemplos
 } from '../../../ui/Styles/input/input.styles';
 
-// Interface específica para o resultado de Bhaskara
+ 
 interface ResultadoBhaskara {
   x1: number | string;
   x2: number | string;
