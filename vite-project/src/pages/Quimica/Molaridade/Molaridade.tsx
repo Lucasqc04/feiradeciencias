@@ -13,31 +13,31 @@ import {
   RadioGroup
 } from '../../../ui/Styles/input/input.styles';
 
-interface ResultadoConcentracao {
+interface ResultadoMolaridade {
   valor: number;
 }
 
-const calcularConcentracao = (quantidadeSoluto: number, volumeSolucao: number): { concentracao: number } => {
-  const concentracaoCalculada = quantidadeSoluto / volumeSolucao;
-  return { concentracao: concentracaoCalculada };
+const calcularMolaridade = (quantidadeSoluto: number, volumeSolucao: number): { molaridade: number } => {
+  const molaridadeCalculada = quantidadeSoluto / volumeSolucao;
+  return { molaridade: molaridadeCalculada };
 };
 
-const calcularQuantidadeSoluto = (concentracao: number, volumeSolucao: number): { quantidadeSoluto: number } => {
-  const quantidadeSolutoCalculada = concentracao * volumeSolucao;
+const calcularQuantidadeSoluto = (molaridade: number, volumeSolucao: number): { quantidadeSoluto: number } => {
+  const quantidadeSolutoCalculada = molaridade * volumeSolucao;
   return { quantidadeSoluto: quantidadeSolutoCalculada };
 };
 
-const calcularVolumeSolucao = (quantidadeSoluto: number, concentracao: number): { volumeSolucao: number } => {
-  const volumeSolucaoCalculado = quantidadeSoluto / concentracao;
+const calcularVolumeSolucao = (quantidadeSoluto: number, molaridade: number): { volumeSolucao: number } => {
+  const volumeSolucaoCalculado = quantidadeSoluto / molaridade;
   return { volumeSolucao: volumeSolucaoCalculado };
 };
 
-const CalculadoraConcentracaoComum: React.FC = () => {
-  const [calculo, setCalculo] = useState<string>('concentracao');
+const CalculadoraMolaridade: React.FC = () => {
+  const [calculo, setCalculo] = useState<string>('molaridade');
   const [quantidadeSoluto, setQuantidadeSoluto] = useState<string>('');
   const [volumeSolucao, setVolumeSolucao] = useState<string>('');
-  const [concentracao, setConcentracao] = useState<string>('');
-  const [resultado, setResultado] = useState<ResultadoConcentracao | string | null>(null);
+  const [molaridade, setMolaridade] = useState<string>('');
+  const [resultado, setResultado] = useState<ResultadoMolaridade | string | null>(null);
   const [mostrarExplicacao, setMostrarExplicacao] = useState<boolean>(false);
   const [mostrarExemplos, setMostrarExemplos] = useState<boolean>(false);
 
@@ -46,28 +46,28 @@ const CalculadoraConcentracaoComum: React.FC = () => {
 
     const quantidadeSolutoNum = parseFloat(quantidadeSoluto);
     const volumeSolucaoNum = parseFloat(volumeSolucao);
-    const concentracaoNum = parseFloat(concentracao);
+    const molaridadeNum = parseFloat(molaridade);
 
-    if (calculo === 'concentracao') {
+    if (calculo === 'molaridade') {
       if (isNaN(quantidadeSolutoNum) || isNaN(volumeSolucaoNum)) {
         setResultado('Por favor, insira valores válidos para a quantidade de soluto e o volume da solução.');
         return;
       }
-      const resultadoCalculado = calcularConcentracao(quantidadeSolutoNum, volumeSolucaoNum);
-      setResultado({ valor: resultadoCalculado.concentracao });
+      const resultadoCalculado = calcularMolaridade(quantidadeSolutoNum, volumeSolucaoNum);
+      setResultado({ valor: resultadoCalculado.molaridade });
     } else if (calculo === 'quantidadeSoluto') {
-      if (isNaN(concentracaoNum) || isNaN(volumeSolucaoNum)) {
-        setResultado('Por favor, insira valores válidos para a concentração e o volume da solução.');
+      if (isNaN(molaridadeNum) || isNaN(volumeSolucaoNum)) {
+        setResultado('Por favor, insira valores válidos para a molaridade e o volume da solução.');
         return;
       }
-      const resultadoCalculado = calcularQuantidadeSoluto(concentracaoNum, volumeSolucaoNum);
+      const resultadoCalculado = calcularQuantidadeSoluto(molaridadeNum, volumeSolucaoNum);
       setResultado({ valor: resultadoCalculado.quantidadeSoluto });
     } else if (calculo === 'volumeSolucao') {
-      if (isNaN(quantidadeSolutoNum) || isNaN(concentracaoNum)) {
-        setResultado('Por favor, insira valores válidos para a quantidade de soluto e a concentração.');
+      if (isNaN(quantidadeSolutoNum) || isNaN(molaridadeNum)) {
+        setResultado('Por favor, insira valores válidos para a quantidade de soluto e a molaridade.');
         return;
       }
-      const resultadoCalculado = calcularVolumeSolucao(quantidadeSolutoNum, concentracaoNum);
+      const resultadoCalculado = calcularVolumeSolucao(quantidadeSolutoNum, molaridadeNum);
       setResultado({ valor: resultadoCalculado.volumeSolucao });
     }
   };
@@ -76,17 +76,17 @@ const CalculadoraConcentracaoComum: React.FC = () => {
     <Container>
       <FormContainer>
         <form onSubmit={calcular}>
-        <label>Calcular:</label>
+          <label>Calcular:</label>
           <InputGroup>
             <RadioGroup>
               <label>
                 <input
                   type="radio"
-                  value="concentracao"
-                  checked={calculo === 'concentracao'}
-                  onChange={() => setCalculo('concentracao')}
+                  value="molaridade"
+                  checked={calculo === 'molaridade'}
+                  onChange={() => setCalculo('molaridade')}
                 />
-                Concentração
+                Molaridade
               </label>
               <label>
                 <input
@@ -95,7 +95,7 @@ const CalculadoraConcentracaoComum: React.FC = () => {
                   checked={calculo === 'quantidadeSoluto'}
                   onChange={() => setCalculo('quantidadeSoluto')}
                 />
-                Quantidade de Soluto
+                Quantidade de Soluto (mol)
               </label>
               <label>
                 <input
@@ -104,13 +104,13 @@ const CalculadoraConcentracaoComum: React.FC = () => {
                   checked={calculo === 'volumeSolucao'}
                   onChange={() => setCalculo('volumeSolucao')}
                 />
-                Volume da Solução
+                Volume da Solução (L)
               </label>
             </RadioGroup>
           </InputGroup>
           {calculo !== 'quantidadeSoluto' && (
             <InputGroup>
-              <label>Quantidade de Soluto (g):</label>
+              <label>Quantidade de Soluto (mol):</label>
               <StyledInput
                 type="number"
                 value={quantidadeSoluto}
@@ -130,13 +130,13 @@ const CalculadoraConcentracaoComum: React.FC = () => {
               />
             </InputGroup>
           )}
-          {calculo !== 'concentracao' && (
+          {calculo !== 'molaridade' && (
             <InputGroup>
-              <label>Concentração (mol/L):</label>
+              <label>Molaridade (mol/L):</label>
               <StyledInput
                 type="number"
-                value={concentracao}
-                onChange={(e) => setConcentracao(e.target.value)}
+                value={molaridade}
+                onChange={(e) => setMolaridade(e.target.value)}
                 required
               />
             </InputGroup>
@@ -157,33 +157,33 @@ const CalculadoraConcentracaoComum: React.FC = () => {
       <Toggle onClick={() => setMostrarExplicacao((prevState) => !prevState)}>Mostrar Explicação</Toggle>
       {mostrarExplicacao && (
         <Explicacao>
-          <h3>Explicação da Concentração Comum</h3>
+          <h3>Explicação da Molaridade</h3>
           <p>
-            A concentração comum (ou molaridade) é a medida da quantidade de soluto presente em uma certa quantidade de solução.
+            A molaridade é uma medida da concentração de um soluto em uma solução. É definida como o número de moles do soluto por litro de solução.
           </p>
           <p>
-            A fórmula para calcular a concentração é: <strong>C = n / V</strong>, onde:
+            A fórmula para calcular a molaridade é: <strong>M = n / V</strong>, onde:
             <ul>
-              <li><strong>C</strong>: Concentração em mol/L.</li>
+              <li><strong>M</strong>: Molaridade em mol/L.</li>
               <li><strong>n</strong>: Quantidade de soluto em mol.</li>
               <li><strong>V</strong>: Volume da solução em litros.</li>
-            </ul>
+              </ul>
           </p>
         </Explicacao>
       )}
       <Toggle onClick={() => setMostrarExemplos((prevState) => !prevState)}>Mostrar Exemplos</Toggle>
       {mostrarExemplos && (
         <Exemplos>
-          <h3>Exemplos de Cálculo da Concentração Comum</h3>
+          <h3>Exemplos de Cálculo da Molaridade</h3>
           <p>
-            <strong>Exemplo 1:</strong> Qual é a concentração de uma solução contendo 2 mol de soluto em 1 litro de solução?
+            <strong>Exemplo 1:</strong> Qual é a molaridade de uma solução que contém 0.5 mol de soluto em 1 litro de solução?
             <br />
-            <strong>Solução:</strong> Usando a fórmula da concentração: <em>C = 2 mol / 1 L</em> = 2 mol/L.
+            <strong>Solução:</strong> Usando a fórmula da molaridade: <em>M = 0.5 mol / 1 L</em> = 0.5 mol/L.
           </p>
           <p>
-            <strong>Exemplo 2:</strong> Qual é a quantidade de soluto necessária para obter uma solução de 0.5 mol/L em 2 litros de solução?
+            <strong>Exemplo 2:</strong> Qual é a quantidade de soluto necessária para fazer uma solução de 1 mol/L em 2 litros de solução?
             <br />
-            <strong>Solução:</strong> Usando a fórmula da quantidade de soluto: <em>n = C * V</em> ⟹ <em>n = 0.5 mol/L * 2 L</em> = 1 mol.
+            <strong>Solução:</strong> Usando a fórmula da quantidade de soluto: <em>n = M * V</em> ⟹ <em>n = 1 mol/L * 2 L</em> = 2 mol.
           </p>
         </Exemplos>
       )}
@@ -191,4 +191,4 @@ const CalculadoraConcentracaoComum: React.FC = () => {
   );
 };
 
-export default CalculadoraConcentracaoComum;
+export default CalculadoraMolaridade;

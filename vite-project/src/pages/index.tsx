@@ -26,6 +26,9 @@ import CalculadoraRegraDeTres from "./Matematica/RegraDeTres/RegraDeTresBasica";
 import CalculadoraForcaResultante from "./Fisica/ForcaResultante/ForcaResultante";
 import CalculadoraMRUV from "./Fisica/MovimentoRetilíneoUniformementeVariado/CalculadoraMRUV";
 import CalculadoraMRU from "./Fisica/MovimentoRetilineoUniforme/MovimentoRetilineoUniforme";
+import CalculadoraConcentracaoComum from "./Quimica/ConcentracaoComum/CalculadoraConcentracaoComum";
+import CalculadoraMolaridade from "./Quimica/Molaridade/Molaridade";
+import CalculadoraEquacaoGases from "./Quimica/EquacaoGeralGases/EquacaoGeralGases";
   
 
 const AppContainer = styled.div`
@@ -67,6 +70,9 @@ const Pages = () => {
             <Route path="/ForcaResultante" element={<CalculadoraForcaResultante />} />
             <Route path="/MRUV" element={<CalculadoraMRUV />} />
             <Route path="/MRU" element={<CalculadoraMRU />} />
+            <Route path="/ConcentracaoComum" element={<CalculadoraConcentracaoComum />} />
+            <Route path="/Molaridade" element={<CalculadoraMolaridade />} />
+            <Route path="/EquacaoGases" element={<CalculadoraEquacaoGases />} />
            </Routes>
         </MainContent>
         <Footer />

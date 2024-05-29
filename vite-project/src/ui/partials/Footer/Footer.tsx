@@ -30,8 +30,9 @@ const Footer = () => {
           <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['Pitagoras', 'Circulo-Area-Perimetro', 'Circulo-Arco', 'AreaPoligonoRegular', 'AreaTrianguloEquilatero', 'LadoTriangulo'])}>Geometria</a></li>
           <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['IMC'])}>Saúde</a></li>
           <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['DiasParaAniversario', 'DiasEntreDatas'])}>Datas</a></li>
-          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['VelocidadeMedia', 'ForcaResultante'])}>Física</a></li>
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['VelocidadeMedia', 'ForcaResultante', 'MRU', "MRUV"])}>Física</a></li>
           <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['JurosCompostos', 'JurosSimples'])}>Financeiro</a></li>
+          <li className="nav-item"><a href="#" className="nav-link px-2 text-muted" onClick={() => handleToggleModal(['ConcentracaoComum', 'Molaridade', 'EquacaoGases'])}>Química</a></li>
         </ul>
       </footer>
 

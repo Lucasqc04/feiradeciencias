@@ -95,12 +95,21 @@ const Hero = () => {
             <ul>
               <li><Link to="/VelocidadeMedia">Calculadora de Velocidade Média</Link></li>
               <li><Link to="/ForcaResultante">Calculadora de Força Resultante</Link></li>
+              <li><Link to="/MRU">Calculadora de Movimento Retilíneo Uniforme (MRU)</Link></li>
+              <li><Link to="/MRUV">Calculadora de Movimento Retilíneo Uniformemente Variado (MRUV)</Link></li>
             </ul>
           </Panel>
           <Panel header={<PanelHeader>Financeiro</PanelHeader>} key="6">
             <ul>
               <li><Link to="/JurosCompostos">Calculadora de Juros Compostos</Link></li>
               <li><Link to="/JurosSimples">Calculadora de Juros Simples</Link></li>
+            </ul>
+          </Panel>
+          <Panel header={<PanelHeader>Química</PanelHeader>} key="7">
+            <ul>
+              <li><Link to="/ConcentracaoComum">Calculadora de Concentração Comum</Link></li>
+              <li><Link to="/Molaridade">Calculadora de Molaridade</Link></li>
+              <li><Link to="/EquacaoGases">Calculadora de Equação Geral dos Gases</Link></li>
             </ul>
           </Panel>
         </Collapse>

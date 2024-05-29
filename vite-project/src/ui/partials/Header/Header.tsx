@@ -26,8 +26,9 @@ const Header = () => {
             <Nav.Link onClick={() => handleToggleModal(['Pitagoras', 'Circulo-Area-Perimetro', 'Circulo-Arco', 'AreaPoligonoRegular', 'AreaTrianguloEquilatero', 'LadoTriangulo'])}>Geometria</Nav.Link>
             <Nav.Link onClick={() => handleToggleModal(['IMC'])}>Saúde</Nav.Link>
             <Nav.Link onClick={() => handleToggleModal(['DiasParaAniversario', 'DiasEntreDatas'])}>Datas</Nav.Link>
-            <Nav.Link onClick={() => handleToggleModal(['VelocidadeMedia', 'ForcaResultante'])}>Física</Nav.Link>
+            <Nav.Link onClick={() => handleToggleModal(['VelocidadeMedia', 'ForcaResultante', 'MRU', "MRUV"])}>Física</Nav.Link>
             <Nav.Link onClick={() => handleToggleModal(['JurosCompostos', 'JurosSimples'])}>Financeiro</Nav.Link>
+            <Nav.Link onClick={() => handleToggleModal(['ConcentracaoComum', 'Molaridade', 'EquacaoGases'])}>Química</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
