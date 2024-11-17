@@ -45,7 +45,7 @@ const Pages = ({ toggleTheme }: { toggleTheme: () => void }) => { // Recebe a fu
   return (
     <Router>
       <AppContainer>
-        <Header toggleTheme={toggleTheme} />
+        <Header toggleTheme={toggleTheme} currentTheme={"light"} />
         <MainContent>
           <Routes>
             <Route path="/" element={<Hero />} />

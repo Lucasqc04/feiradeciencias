@@ -112,14 +112,7 @@ const Container = styled.div`
   margin-top:5%;
 `;
 
-const ToggleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  width: 90%;
-`;
-
+ 
 const Toggle = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#e6e6e6" : "#34495e"};
   border: none;
@@ -181,12 +174,7 @@ const CenteredButton = styled.button`
     background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#0056b3" : "#3498db"};
   }
 `;
-
-const RadioLabel = styled.label`
-  margin-left: 8px;
-  font-size: 16px;
-  color: ${({ theme }) => theme.textColor};
-`;
+ 
 
 const Explicacao = styled.div`
    background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#f2f2f2" : "#34495e"};

@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from 'react';
-import styled, { DefaultTheme } from 'styled-components';
+import styled  from 'styled-components';
 
 interface ResultadoRegraDeTres {
   valorX: number;
