@@ -10,13 +10,15 @@ import {
   Toggle,
   Explicacao,
   Exemplos,
- 
 } from '../../../ui/Styles/input/input.styles';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
- 
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+// Função para calcular o montante com juros compostos
 const calcularMontante = (capital: number, taxa: number, periodo: number): number => {
-  return capital * Math.pow((1 + taxa / 100), periodo);
+  return capital * Math.pow(1 + taxa / 100, periodo);
 };
 
 const CalculadoraJurosCompostos: React.FC = () => {
@@ -46,6 +48,26 @@ const CalculadoraJurosCompostos: React.FC = () => {
       const montante = calcularMontante(capitalNum, taxaNum, periodoNum);
       setResultado(montante);
     }
+  };
+
+  // Função para gerar os dados do gráfico
+  const gerarGrafico = (capitalNum: number, taxaNum: number, periodoNum: number) => {
+    const montantes = Array.from({ length: periodoNum }, (_, index) => calcularMontante(capitalNum, taxaNum, index + 1));
+    const labels = Array.from({ length: periodoNum }, (_, index) => index + 1);
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Montante Acumulado',
+          data: montantes,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          fill: false,
+          tension: 0.1,
+        },
+      ],
+    };
   };
 
   return (
@@ -92,6 +114,15 @@ const CalculadoraJurosCompostos: React.FC = () => {
           </ResultadoContainer>
         )}
       </FormContainer>
+
+      {/* Gráfico da evolução do montante */}
+      {resultado && typeof resultado !== 'string' && (
+        <div>
+          <h3>Gráfico da Evolução do Montante</h3>
+          <Line data={gerarGrafico(parseFloat(capital), parseFloat(taxa), parseFloat(periodo))} />
+        </div>
+      )}
+
       <Toggle onClick={() => setMostrarExplicacao((prevState) => !prevState)}>Mostrar Explicação</Toggle>
       {mostrarExplicacao && (
         <Explicacao>
@@ -110,6 +141,7 @@ const CalculadoraJurosCompostos: React.FC = () => {
           </p>
         </Explicacao>
       )}
+
       <Toggle onClick={() => setMostrarExemplos((prevState) => !prevState)}>Mostrar Exemplos</Toggle>
       {mostrarExemplos && (
         <Exemplos>

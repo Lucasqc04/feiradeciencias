@@ -1,6 +1,4 @@
- 
 import React, { useState, FormEvent } from 'react';
- 
 import {
   ResultadoContainer,
   ResultadoTexto,
@@ -14,19 +12,22 @@ import {
   Exemplos,
   RadioGroup
 } from '../../../ui/Styles/input/input.styles';
- 
-// Interface específica para o resultado da PA
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+// Interface para o resultado da PA
 interface ResultadoPA {
   valor: number;
 }
- 
-// Função de cálculo específica para a PA
+
+// Função para calcular a PA
 const calcularPA = (primeiroTermo: number, razao: number, numeroTermo: number): { termoGeral: number } => {
-  // Calcula o termo geral da PA
   const termoGeralCalculado = primeiroTermo + (numeroTermo - 1) * razao;
   return { termoGeral: termoGeralCalculado };
 };
- 
+
 const CalculadoraProgressaoAritmetica: React.FC = () => {
   const [calculo, setCalculo] = useState<string>('termoGeral');
   const [primeiroTermo, setPrimeiroTermo] = useState<string>('');
@@ -36,53 +37,88 @@ const CalculadoraProgressaoAritmetica: React.FC = () => {
   const [resultado, setResultado] = useState<ResultadoPA | string | null>(null);
   const [mostrarExplicacao, setMostrarExplicacao] = useState<boolean>(false);
   const [mostrarExemplos, setMostrarExemplos] = useState<boolean>(false);
- 
+
+  const validarInputs = (primeiroTermoNum: number, razaoNum: number, numeroTermoNum: number, termoGeralNum: number) => {
+    if (calculo === 'termoGeral' && (isNaN(primeiroTermoNum) || isNaN(razaoNum) || isNaN(numeroTermoNum))) {
+      return 'Por favor, insira valores válidos para o primeiro termo, a razão e o número do termo.';
+    }
+    if (calculo === 'primeiroTermo' && (isNaN(termoGeralNum) || isNaN(razaoNum) || isNaN(numeroTermoNum))) {
+      return 'Por favor, insira valores válidos para o termo geral, a razão e o número do termo.';
+    }
+    if (calculo === 'razao' && (isNaN(termoGeralNum) || isNaN(primeiroTermoNum) || isNaN(numeroTermoNum))) {
+      return 'Por favor, insira valores válidos para o termo geral, o primeiro termo e o número do termo.';
+    }
+    if (calculo === 'numeroTermo' && (isNaN(termoGeralNum) || isNaN(primeiroTermoNum) || isNaN(razaoNum))) {
+      return 'Por favor, insira valores válidos para o termo geral, o primeiro termo e a razão.';
+    }
+    return '';
+  };
+
   const calcular = (e: FormEvent) => {
     e.preventDefault();
- 
+
     const primeiroTermoNum = parseFloat(primeiroTermo);
     const razaoNum = parseFloat(razao);
     const numeroTermoNum = parseFloat(numeroTermo);
     const termoGeralNum = parseFloat(termoGeral);
- 
-    if (calculo === 'termoGeral') {
-      if (isNaN(primeiroTermoNum) || isNaN(razaoNum) || isNaN(numeroTermoNum)) {
-        setResultado('Por favor, insira valores válidos para o primeiro termo, a razão e o número do termo.');
-        return;
-      }
-      const resultadoCalculado = calcularPA(primeiroTermoNum, razaoNum, numeroTermoNum);
-      setResultado({ valor: resultadoCalculado.termoGeral });
-    } else if (calculo === 'primeiroTermo') {
-      if (isNaN(termoGeralNum) || isNaN(razaoNum) || isNaN(numeroTermoNum)) {
-        setResultado('Por favor, insira valores válidos para o termo geral, a razão e o número do termo.');
-        return;
-      }
-      const primeiroTermoCalculado = termoGeralNum - (numeroTermoNum - 1) * razaoNum;
-      setResultado({ valor: primeiroTermoCalculado });
-    } else if (calculo === 'razao') {
-      if (isNaN(termoGeralNum) || isNaN(primeiroTermoNum) || isNaN(numeroTermoNum)) {
-        setResultado('Por favor, insira valores válidos para o termo geral, o primeiro termo e o número do termo.');
-        return;
-      }
-      const razaoCalculada = (termoGeralNum - primeiroTermoNum) / (numeroTermoNum - 1);
-      setResultado({ valor: razaoCalculada });
-    } else if (calculo === 'numeroTermo') {
-      if (isNaN(termoGeralNum) || isNaN(primeiroTermoNum) || isNaN(razaoNum)) {
-        setResultado('Por favor, insira valores válidos para o termo geral, o primeiro termo e a razão.');
-        return;
-      }
-      const numeroTermoCalculado = (termoGeralNum - primeiroTermoNum) / razaoNum + 1;
-      setResultado({ valor: numeroTermoCalculado });
+
+    const erro = validarInputs(primeiroTermoNum, razaoNum, numeroTermoNum, termoGeralNum);
+    if (erro) {
+      setResultado(erro);
+      return;
+    }
+
+    let resultadoCalculado;
+    switch (calculo) {
+      case 'termoGeral':
+        resultadoCalculado = calcularPA(primeiroTermoNum, razaoNum, numeroTermoNum);
+        setResultado({ valor: resultadoCalculado.termoGeral });
+        break;
+      case 'primeiroTermo':
+        const primeiroTermoCalculado = termoGeralNum - (numeroTermoNum - 1) * razaoNum;
+        setResultado({ valor: primeiroTermoCalculado });
+        break;
+      case 'razao':
+        const razaoCalculada = (termoGeralNum - primeiroTermoNum) / (numeroTermoNum - 1);
+        setResultado({ valor: razaoCalculada });
+        break;
+      case 'numeroTermo':
+        const numeroTermoCalculado = (termoGeralNum - primeiroTermoNum) / razaoNum + 1;
+        setResultado({ valor: numeroTermoCalculado });
+        break;
+      default:
+        setResultado('Erro ao calcular.');
+        break;
     }
   };
- 
+
+  // Função para gerar dados do gráfico
+  const gerarGrafico = (primeiroTermoNum: number, razaoNum: number, numeroTermoNum: number) => {
+    const termos = Array.from({ length: numeroTermoNum }, (_, index) => primeiroTermoNum + index * razaoNum);
+    const labels = Array.from({ length: numeroTermoNum }, (_, index) => index + 1);
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Termos da PA',
+          data: termos,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          fill: false,
+          tension: 0.1,
+        },
+      ],
+    };
+  };
+
   return (
     <Container>
       <FormContainer>
         <form onSubmit={calcular}>
           <InputGroup>
             <label>Calcular:</label>
-            <hr/>
+            <hr />
             <RadioGroup>
               <label>
                 <input
@@ -121,54 +157,34 @@ const CalculadoraProgressaoAritmetica: React.FC = () => {
                 Número do Termo
               </label>
             </RadioGroup>
-            <hr/>
+            <hr />
           </InputGroup>
-          {calculo !== 'primeiroTermo' && (
-            <InputGroup>
-              <label>Primeiro Termo:</label>
-              <StyledInput
-                type="number"
-                value={primeiroTermo}
-                onChange={(e) => setPrimeiroTermo(e.target.value)}
-                required
-              />
-            </InputGroup>
-          )}
-          {calculo !== 'razao' && (
-            <InputGroup>
-              <label>Razão:</label>
-              <StyledInput
-                type="number"
-                value={razao}
-                onChange={(e) => setRazao(e.target.value)}
-                required
-              />
-            </InputGroup>
-          )}
-          {calculo !== 'numeroTermo' && (
-            <InputGroup>
-              <label>Número do Termo:</label>
-              <StyledInput
-                type="number"
-                value={numeroTermo}
-                onChange={(e) => setNumeroTermo(e.target.value)}
-                required
-              />
-            </InputGroup>
-          )}
-          {calculo !== 'termoGeral' && (
-            <InputGroup>
-              <label>Termo Geral:</label>
-              <StyledInput
-                type="number"
-                value={termoGeral}
-                onChange={(e) => setTermoGeral(e.target.value)}
-                required
-              />
-            </InputGroup>
-          )}
+
+          {['primeiroTermo', 'razao', 'numeroTermo', 'termoGeral'].map((campo) => {
+            if (calculo !== campo) {
+              return (
+                <InputGroup key={campo}>
+                  <label>{campo === 'primeiroTermo' ? 'Primeiro Termo' : campo === 'razao' ? 'Razão' : campo === 'numeroTermo' ? 'Número do Termo' : 'Termo Geral'}:</label>
+                  <StyledInput
+                    type="number"
+                    value={campo === 'primeiroTermo' ? primeiroTermo : campo === 'razao' ? razao : campo === 'numeroTermo' ? numeroTermo : termoGeral}
+                    onChange={(e) => {
+                      if (campo === 'primeiroTermo') setPrimeiroTermo(e.target.value);
+                      if (campo === 'razao') setRazao(e.target.value);
+                      if (campo === 'numeroTermo') setNumeroTermo(e.target.value);
+                      if (campo === 'termoGeral') setTermoGeral(e.target.value);
+                    }}
+                    required
+                  />
+                </InputGroup>
+              );
+            }
+            return null;
+          })}
+          
           <CenteredButton type="submit">Calcular</CenteredButton>
         </form>
+
         {resultado && (
           <ResultadoContainer>
             <h3>Resultado:</h3>
@@ -180,64 +196,42 @@ const CalculadoraProgressaoAritmetica: React.FC = () => {
           </ResultadoContainer>
         )}
       </FormContainer>
+
+      {resultado && typeof resultado !== 'string' && (
+        <div>
+          <h3>Gráfico da PA</h3>
+          <Line data={gerarGrafico(parseFloat(primeiroTermo), parseFloat(razao), parseFloat(numeroTermo))} />
+        </div>
+      )}
+
       <Toggle onClick={() => setMostrarExplicacao((prevState) => !prevState)}>Mostrar Explicação</Toggle>
       {mostrarExplicacao && (
         <Explicacao>
-          <h3>Explicação da Progressão Aritmética (PA)</h3>
+          <h3>Explicação sobre Progressão Aritmética (PA)</h3>
           <p>
-            Uma Progressão Aritmética (PA) é uma sequência numérica em que cada termo, a partir do segundo, 
-            é a soma do termo anterior com uma constante fixa chamada de razão.
+            A Progressão Aritmética (PA) é uma sequência de números em que a diferença entre termos consecutivos é sempre a mesma, chamada de razão (r).
           </p>
-          <p>
-            O termo geral de uma PA é dado pela fórmula: <strong>a<sub>n</sub> = a<sub>1</sub> + (n - 1) * r</strong>, onde:
-            <ul>
-              <li><strong>a<sub>1</sub></strong>: Primeiro termo da PA. (Normalmente, é o termo inicial dado na sequência)</li>
-              <li><strong>r</strong>: Razão da PA. (A diferença constante entre os termos consecutivos)</li>
-              <li><strong>n</strong>: Número do termo desejado. (A posição do termo na sequência)</li>
-              <li><strong>a<sub>n</sub></strong>: Termo geral da PA. (O valor do termo na posição <em>n</em>)</li>
-            </ul>
-          </p>
+          <ul>
+            <li><strong>a<sub>1</sub></strong>: Primeiro termo da PA.</li>
+            <li><strong>r</strong>: Razão da PA.</li>
+            <li><strong>n</strong>: Número do termo desejado.</li>
+            <li><strong>a<sub>n</sub></strong>: Termo geral da PA.</li>
+          </ul>
         </Explicacao>
       )}
+
       <Toggle onClick={() => setMostrarExemplos((prevState) => !prevState)}>Mostrar Exemplos</Toggle>
       {mostrarExemplos && (
         <Exemplos>
           <h3>Exemplos de Cálculo do Termo Geral da PA</h3>
           <p>
-            <strong>Exemplo 1:</strong> Em uma PA com primeiro termo 2 e razão 3, qual é o 6º termo?
-<br />
+            <strong>Exemplo 1:</strong> Em uma PA com primeiro termo 2 e razão 3, qual é o 6º termo?<br />
             <strong>Solução:</strong> Usando a fórmula do termo geral: <em>a<sub>6</sub> = 2 + (6 - 1) * 3</em> = 2 + 15 = 17.
-          </p>
-          <p>
-            <strong>Exemplo 2:</strong> Em uma PA com termo geral 20 e razão 4, qual é o 5º termo?
-            <br />
-            <strong>Solução:</strong> Usando a fórmula do termo geral: <em>a<sub>5</sub> = a<sub>1</sub> + (5 - 1) * 4</em>.
-            <br />
-            Precisamos encontrar o primeiro termo: <em>20 = a<sub>1</sub> + (5 - 1) * 4</em>.
-            <br />
-            Então, <em>20 = a<sub>1</sub> + 16</em>, logo, <em>a<sub>1</sub> = 4</em>.
-            <br />
-            Portanto, <em>a<sub>5</sub> = 4 + (5 - 1) * 4 = 4 + 16 = 20</em>.
-          </p>
-          <p>
-            <strong>Exemplo 3:</strong> Qual é a razão de uma PA se o 3º termo é 15 e o 7º termo é 31?
-            <br />
-            <strong>Solução:</strong> Usando a fórmula do termo geral: <em>a<sub>3</sub> = a<sub>1</sub> + 2r</em> e <em>a<sub>7</sub> = a<sub>1</sub> + 6r</em>.
-            <br />
-            Temos duas equações: 
-            <br />
-            1) <em>15 = a<sub>1</sub> + 2r</em>
-            <br />
-            2) <em>31 = a<sub>1</sub> + 6r</em>
-            <br />
-            Subtraindo a primeira equação da segunda: <em>31 - 15 = (a<sub>1</sub> + 6r) - (a<sub>1</sub> + 2r)</em>
-            <br />
-            <em>16 = 4r</em>, logo, <em>r = 4</em>.
           </p>
         </Exemplos>
       )}
     </Container>
   );
 };
- 
+
 export default CalculadoraProgressaoAritmetica;

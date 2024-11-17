@@ -41,11 +41,11 @@ const MainContent = styled.div`
   flex: 1;
 `;
 
-const Pages = () => {
+const Pages = ({ toggleTheme }: { toggleTheme: () => void }) => { // Recebe a função de troca de tema
   return (
     <Router>
       <AppContainer>
-        <Header />
+        <Header toggleTheme={toggleTheme} />
         <MainContent>
           <Routes>
             <Route path="/" element={<Hero />} />

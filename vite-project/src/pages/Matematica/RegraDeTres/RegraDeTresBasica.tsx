@@ -1,6 +1,5 @@
-// CalculadoraRegraDeTres.jsx
 import React, { useState, FormEvent } from 'react';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 
 interface ResultadoRegraDeTres {
   valorX: number;
@@ -101,20 +100,20 @@ const CalculadoraRegraDeTres: React.FC = () => {
 export default CalculadoraRegraDeTres;
 
 const ResultadoContainer = styled.div`
-  background-color: #e6f7ff; /* Azul claro */
-  border: 2px solid #91d5ff; /* Azul mais escuro */
+  background-color: ${(props) => props.theme.backgroundColor};
+  border: 2px solid ${(props) => props.theme.linkColor};
   border-radius: 5px;
   padding: 20px;
   text-align: center;
   margin-top: 20px;
   width: 90%;
-  margin-left:5%;
+  margin-left: 5%;
 `;
 
 const ResultadoTexto = styled.p`
   font-size: 18px;
   font-weight: bold;
-  color: #0056b3; /* Azul escuro */
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Container = styled.div`
@@ -123,13 +122,14 @@ const Container = styled.div`
   align-items: center;
   margin-bottom: 20%;
   margin-top: 5%;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 const FormContainer = styled.div`
-  background-color: #f9f9f9; /* Cor de fundo do container dos inputs */
+  background-color: ${(props) => props.theme.backgroundColor};
   border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   width: 90%;
 `;
@@ -150,30 +150,30 @@ const InputGroup = styled.div`
 
 const StyledInput = styled.input`
   height: 40px;
-  width: 80px; /* Ajuste a largura conforme necessário */
+  width: 80px;
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid orange; /* Laranja */
-  background: white; /* Branco */
-  color: orange; /* Laranja */
+  border: 2px solid ${(props) => props.theme.linkColor};
+  background: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.textColor};
   text-align: center;
 `;
 
 const FractionLine = styled.div`
   width: 100%;
   height: 2px;
-  background-color: orange; /* Laranja */
+  background-color: ${(props) => props.theme.linkColor};
   margin: 5px 0;
 `;
 
 const StyledPlaceholder = styled.div`
   height: 40px;
-  width: 80px; /* Ajuste a largura conforme necessário */
+  width: 80px;
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid orange; /* Laranja */
-  background: white; /* Branco */
-  color: orange; /* Laranja */
+  border: 2px solid ${(props) => props.theme.linkColor};
+  background: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.textColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,6 +182,7 @@ const StyledPlaceholder = styled.div`
 const EqualsSign = styled.div`
   font-size: 24px;
   margin: 0 20px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const CenteredButton = styled.button`
@@ -190,36 +191,36 @@ const CenteredButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: ${(props) => props.theme.linkColor};
+  color: ${(props) => props.theme.backgroundColor};
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: ${(props) => props.theme.linkHoverColor};
   }
 `;
 
 const Toggle = styled.button`
-  background-color: #e6e6e6;
+  background-color: ${(props) => props.theme.backgroundColor};
   border: none;
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
   margin: 0 10px;
   font-size: 16px;
-  color: #333;
+  color: ${(props) => props.theme.textColor};
   transition: background-color 0.3s ease;
   margin-bottom: 2%;
 
   &:hover {
-    background-color: #ccc;
+    background-color: ${(props) => props.theme.linkHoverColor};
   }
 `;
 
 const Explicacao = styled.div`
-  background-color: #f2f2f2; /* Cor de fundo da explicação */
+  background-color: ${(props) => props.theme.backgroundColor};
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 20px;
@@ -227,7 +228,7 @@ const Explicacao = styled.div`
 `;
 
 const Exemplos = styled.div`
-  background-color: #f2f2f2; /* Cor de fundo dos exemplos */
+  background-color: ${(props) => props.theme.backgroundColor};
   border-radius: 5px;
   padding: 10px;
   width: 90%;

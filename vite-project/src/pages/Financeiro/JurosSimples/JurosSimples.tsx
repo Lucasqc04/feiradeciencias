@@ -11,11 +11,32 @@ import {
   Explicacao,
   Exemplos,
 } from '../../../ui/Styles/input/input.styles';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
- 
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const calcularMontanteJurosSimples = (capital: number, taxa: number, periodo: number): number => {
   return capital + (capital * taxa * periodo) / 100;
+};
+
+const gerarGraficoJurosSimples = (capital: number, taxa: number, periodo: number) => {
+  const montantes = Array.from({ length: periodo }, (_, index) => calcularMontanteJurosSimples(capital, taxa, index + 1));
+  const labels = Array.from({ length: periodo }, (_, index) => index + 1); // Períodos de 1 até 'periodo'
+
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Montante Acumulado',
+        data: montantes,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: false,
+        tension: 0.1,
+      },
+    ],
+  };
 };
 
 const CalculadoraJurosSimples: React.FC = () => {
@@ -91,6 +112,14 @@ const CalculadoraJurosSimples: React.FC = () => {
           </ResultadoContainer>
         )}
       </FormContainer>
+
+      {resultado && typeof resultado !== 'string' && (
+        <div>
+          <h3>Gráfico do Montante Acumulado</h3>
+          <Line data={gerarGraficoJurosSimples(parseFloat(capital), parseFloat(taxa), parseFloat(periodo))} />
+        </div>
+      )}
+
       <Toggle onClick={() => setMostrarExplicacao((prevState) => !prevState)}>Mostrar Explicação</Toggle>
       {mostrarExplicacao && (
         <Explicacao>
@@ -109,6 +138,7 @@ const CalculadoraJurosSimples: React.FC = () => {
           </p>
         </Explicacao>
       )}
+
       <Toggle onClick={() => setMostrarExemplos((prevState) => !prevState)}>Mostrar Exemplos</Toggle>
       {mostrarExemplos && (
         <Exemplos>

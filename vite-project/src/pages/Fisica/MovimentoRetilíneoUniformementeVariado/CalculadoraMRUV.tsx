@@ -187,8 +187,8 @@ const CalculadoraMRUV: React.FC = () => {
 export default CalculadoraMRUV;
 
 const ResultadoContainer = styled.div`
-  background-color: #e6f7ff; /* Azul claro */
-  border: 2px solid #91d5ff; /* Azul mais escuro */
+  background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#ffb74c58" : "#34495e"};
+  border: 2px solid ${({ theme }) => theme.textColor};
   border-radius: 5px;
   padding: 20px;
   text-align: center;
@@ -200,7 +200,7 @@ const ResultadoContainer = styled.div`
 const ResultadoTexto = styled.p`
   font-size: 18px;
   font-weight: bold;
-  color: #0056b3; /* Azul escuro */
+  color: ${({ theme }) => theme.textColor};
 `;
 
 const Container = styled.div`
@@ -220,24 +220,27 @@ const ToggleContainer = styled.div`
 `;
 
 const Toggle = styled.div`
-  background-color: #e6e6e6;
+  background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#e6e6e6" : "#34495e"};
   border: none;
   cursor: pointer;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 0 10px;
   font-size: 16px;
-  color: #333;
+  color: ${({ theme }) => theme.textColor};
   transition: background-color 0.3s ease;
   width: 100%;
+  text-align: center;
+  margin-top: 2%;
+  font-size: large;
 
   &:hover {
-    background-color: #ccc;
+    background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#ccc" : "#2c3e50"};
   }
 `;
 
 const FormContainer = styled.div`
-  background-color: #f9f9f9; /* Cor de fundo do container dos inputs */
+   background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#f9f9f9" : "#34495e"};
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
@@ -255,9 +258,9 @@ const StyledInput = styled.input`
   width: 90%; /* Ajuste a largura conforme necessário */
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid orange; /* Laranja */
-  background: white; /* Branco */
-  color: orange; /* Laranja */
+  border: 2px solid ${({ theme }) => theme.textColor};
+  background: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "white" : "#34495e"};
+  color: ${({ theme }) => theme.textColor};
   margin-left: 5%;
 `;
 
@@ -267,25 +270,25 @@ const CenteredButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#007bff" : "#2980b9"};
+  color: ${({ theme }) => theme.textColor};
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#0056b3" : "#3498db"};
   }
 `;
 
 const RadioLabel = styled.label`
   margin-left: 8px;
   font-size: 16px;
-  color: #333;
+  color: ${({ theme }) => theme.textColor};
 `;
 
 const Explicacao = styled.div`
-  background-color: #f2f2f2; /* Cor de fundo da explicação */
+   background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#f2f2f2" : "#34495e"};
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 20px;
@@ -293,7 +296,7 @@ const Explicacao = styled.div`
 `;
 
 const Exemplos = styled.div`
-  background-color: #f2f2f2; /* Cor de fundo dos exemplos */
+  background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#f2f2f2" : "#34495e"};
   border-radius: 5px;
   padding: 10px;
   width: 90%;

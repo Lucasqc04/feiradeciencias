@@ -8,7 +8,7 @@ const { Panel } = Collapse;
 const HeroContainer = styled.div`
   text-align: center;
   padding: 50px;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.backgroundColor === "#ffffff" ? "#f5f5f5" : "#2c3e50"};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,19 +19,19 @@ const HeroContainer = styled.div`
 
 const HeroTitle = styled.h1`
   font-size: 3rem;
-  color: #333;
+  color: ${({ theme }) => theme.textColor};
   margin-bottom: 20px;
 `;
 
 const HeroSubtitle = styled.p`
   font-size: 1.5rem;
-  color: #666;
+  color: ${({ theme }) => theme.textColor};
   margin-bottom: 30px;
 `;
 
 const Description = styled.p`
   font-size: 1.1rem;
-  color: #555;
+  color: ${({ theme }) => theme.textColor};
   max-width: 800px;
   text-align: justify;
   margin: 20px auto;
@@ -46,7 +46,7 @@ const ToggleContainer = styled.div`
 
 const PanelHeader = styled.h3`
   font-size: 1.3rem;
-  color: #333;
+  color: ${({ theme }) => theme.textColor};
 `;
 
 const Hero = () => {
